@@ -61,66 +61,79 @@ export function MainComponent(): JSX.Element {
 
       <div className="select-stations">
         <div className="container row">
-          <div className="select-stations__col">
-            <h3 className="select-stations__text">From</h3>
-            <select
-              className="select-stations__selector"
-              value={from}
-              onChange={(e) => setFrom(e.target.value)}
-            >
-              {allStations.map((station, i) => {
-                return (
-                  <option key={i} value={station}>
-                    {station}
-                  </option>
-                );
-              })}
-            </select>
-            <h3 className="select-stations__selector">Selected: {from}</h3>
+          <div className="col">
+            <div className="select-stations__col">
+              <h3 className="select-stations__text">From</h3>
+              <select
+                className="select-stations__selector"
+                value={from}
+                onChange={(e) => setFrom(e.target.value)}
+              >
+                {allStations.map((station, i) => {
+                  return (
+                    <option key={i} value={station}>
+                      {station}
+                    </option>
+                  );
+                })}
+              </select>
+              <h3 className="select-stations__selector">Selected: {from}</h3>
+            </div>
+          </div>
+
+          <div className="col">
+            <div className="select-stations__col">
+              <h3 className="select-stations__text">To</h3>
+              <select
+                className="select-stations__selector"
+                value={to}
+                onChange={(e) => setTo(e.target.value)}
+              >
+                {allStations.map((station, i) => {
+                  return (
+                    <option key={i} value={station}>
+                      {station}
+                    </option>
+                  );
+                })}
+              </select>
+              <h3 className="select-stations__selector">Selected: {to}</h3>
+            </div>
           </div>
         </div>
-        <div className="container row">
-          <div className="select-stations__col">
-            <h3 className="select-stations__text">To</h3>
-            <select
-              className="select-stations__selector"
-              value={to}
-              onChange={(e) => setTo(e.target.value)}
-            >
-              {allStations.map((station, i) => {
-                return (
-                  <option key={i} value={station}>
-                    {station}
-                  </option>
-                );
-              })}
-            </select>
-            <h3 className="select-stations__selector">Selected: {to}</h3>
-          </div>
+      </div>
+      <div className="container">
+        <div className="center">
+          <button className="btn" onClick={() => getPath()}>
+            Find Path
+          </button>
         </div>
-        <button className="btn" onClick={() => getPath()}>
-          Find Path
-        </button>
       </div>
 
       <div className="result">
         {typeof path === "string" ? (
-          <div className="container">
+          <div className="container center">
             <div className="result-no-path">
               <p className="result__text">{path}</p>
             </div>
           </div>
         ) : (
-          <div className="result__path">
-            <p className="result__text">Distance: {path.cost}</p>
-            <p>Route:</p>{" "}
-            {path.path.map((pathNode, i) => {
-              return (
-                <div key={i} className="col">
-                  <p className="result__path-node">{pathNode}</p>
-                </div>
-              );
-            })}
+          <div className="container result__path">
+            <div className="center">
+              <p className="result__text">Distance: {path.cost}</p>
+            </div>
+            <div className="center">
+              <p>Route: </p>{" "}
+              <div className="row">
+                {path.path.map((pathNode, i) => {
+                  return (
+                    <div key={i} className="col">
+                      <p className="result__path-node">{pathNode}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         )}
       </div>
